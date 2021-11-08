@@ -68,8 +68,10 @@ def upload_new_brew_formula(content, version, sha):
     json_header = 'Content-Type: application/json'
     data = '{"path": "macprefs.rb", "message": "Updating to version ' + version + '", '
     data += '"committer": {"name": "Piyush Bansal", "email": "bansalpiyush177@gmail.com"}, '
-    data += '"content": "' + content + '", "branch": "master", "sha":"' + sha + '"}'
-    with open('github_request.json', 'w') as f:
+    data += '"content": "' 
+    data = data.encode()
+    data += content + '", "branch": "master", "sha":"'.encode() + sha.encode() + '"}'.encode()
+    with open('github_request.json', 'wb') as f:
         f.write(data)
     commands = [
         'curl',

@@ -6,7 +6,7 @@ class Macprefs < Formula
     url "https://github.com/piyush1104/macprefs/archive/###version###.tar.gz"
     sha256 "###sha256###"
   
-    depends_on :python3
+    depends_on :python if MacOS.version <= :snow_leopard
   
     def install
       bin.install Dir["*"]
