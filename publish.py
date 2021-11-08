@@ -28,7 +28,7 @@ def create_version_tag_and_push(tag):
 def download_tar(filename):
     print('Downloading the new version...')
     urllib.request.urlretrieve(
-        'https://github.com/clintmod/macprefs/archive/' + filename, filename)
+        'https://github.com/piyush1104/macprefs/archive/' + filename, filename)
 
 
 def calc_sha256(filename):
@@ -56,18 +56,18 @@ def create_brew_formula_file_content(version, sha256):
 def get_sha_of_old_macprefs_formula():
     print('Getting sha of old macprefs formula from github...')
     result = json.load(urllib.request.urlopen(
-        'https://api.github.com/repos/clintmod/homebrew-formulas/contents/Formula/macprefs.rb'))
+        'https://api.github.com/repos/piyush1104/homebrew-formulas/contents/macprefs.rb'))
     # print 'sha = ' + result['sha']
     return result['sha']
 
 
 def upload_new_brew_formula(content, version, sha):
-    print('Uploading the new macprefs formula to https://github.com/clintmod/homebrew-formulas')
+    print('Uploading the new macprefs formula to https://github.com/piyush1104/homebrew-formulas')
     token = os.environ['MACPREFS_TOKEN']
     auth_header = 'Authorization: token ' + token
     json_header = 'Content-Type: application/json'
-    data = '{"path": "Formula/macprefs.rb", "message": "Updating to version ' + version + '", '
-    data += '"committer": {"name": "Clint M", "email": "cmodien@gmail.com"}, '
+    data = '{"path": "macprefs.rb", "message": "Updating to version ' + version + '", '
+    data += '"committer": {"name": "Piyush Bansal", "email": "bansalpiyush177@gmail.com"}, '
     data += '"content": "' + content + '", "branch": "master", "sha":"' + sha + '"}'
     with open('github_request.json', 'w') as f:
         f.write(data)
@@ -82,7 +82,7 @@ def upload_new_brew_formula(content, version, sha):
         json_header,
         '-d',
         '@github_request.json',
-        'https://api.github.com/repos/clintmod/homebrew-formulas/contents/Formula/macprefs.rb'
+        'https://api.github.com/repos/piyush1104/homebrew-formulas/contents/macprefs.rb'
     ]
     result = execute_shell(commands)
     if 'Status: 200 OK' not in result:
