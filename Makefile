@@ -11,13 +11,13 @@ setup:
 	pip install -r requirements.txt
 
 test:
-	pytest --cov=. --cov-report xml:cov.xml  --cov-report term-missing
+	python3 -m pytest --cov=. --cov-report xml:cov.xml  --cov-report term-missing
 
 lint:
-	pylint *.py
+	python3 -m pylint *.py
 
 publish: test
-	python publish.py 
+	python3 publish.py 
 
 help:
 	@echo "COMMANDS:"
