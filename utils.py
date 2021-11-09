@@ -34,7 +34,7 @@ def copy_dir(src, dest, with_sudo=False):
     command = ['rsync', '-a'] + extra_args + [src, dest]
     if with_sudo:
         command = ['sudo'] + command
-    execute_shell(command)
+    execute_shell(command, suppress_errors=True)
 
 
 def copy_files(files, dest):
@@ -42,7 +42,7 @@ def copy_files(files, dest):
     if log.root.getEffectiveLevel() == log.DEBUG:
         extra_args = ['-vv']
     command = ['rsync', '-a'] + extra_args + files + [dest]
-    execute_shell(command)
+    execute_shell(command, suppress_errors=True)
 
 
 def copy_file(fle, dest):
